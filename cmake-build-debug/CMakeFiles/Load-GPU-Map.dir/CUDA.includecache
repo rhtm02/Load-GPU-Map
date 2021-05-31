@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hyungjun/workspace/Load-GPU-Map/include/dataType.cuh
+
+/home/hyungjun/workspace/Load-GPU-Map/include/loadGpu.cuh
+iostream
+-
+fstream
+-
+string
+-
+vector
+-
+sys/shm.h
+-
+sys/ipc.h
+-
+dataType.cuh
+/home/hyungjun/workspace/Load-GPU-Map/include/dataType.cuh
+
+/home/hyungjun/workspace/Load-GPU-Map/src/loadGpu.cu
+../include/loadGpu.cuh
+/home/hyungjun/workspace/Load-GPU-Map/include/loadGpu.cuh
+unistd.h
+-
+
