@@ -6,7 +6,7 @@
 #include <sys/ipc.h>
 #include "dataType.cuh"
 
-#define _ROAD_GPU_  0x50000000
+#define _ROAD_GPU_  0x50000001
 using namespace std;
 
 
@@ -66,29 +66,46 @@ int LoadMap(string csv)
             lot[(int)tmp[1]] = tmp[7];
 
             if ((int)tmp[4]!= 0) {
+                //road[(int)tmp[1]].node_id = (int)tmp[1];
                 road[(int)tmp[1]].dest[road[(int)tmp[1]].r_len] = (int)tmp[2];
                 road[(int)tmp[1]].len[road[(int)tmp[1]].r_len++] = tmp[3];
             }
             if ((int)tmp[5] != 0) {
+                //road[(int)tmp[2]].node_id = (int)tmp[2];
                 road[(int)tmp[2]].dest[road[(int)tmp[2]].r_len] = (int)tmp[1];
                 road[(int)tmp[2]].len[road[(int)tmp[2]].r_len++] = tmp[3];
             }
+
             tmp.clear();
+        }
+        for(int idx = 0;idx < 100;idx++)
+        {
+            printf("%d index road len : %d dest ID : %d len : %f \n",idx,road[idx].r_len,road[idx].dest[0],road[idx].len[0]);
         }
         //for IPC
         if((gpu_roadID = shmget(_ROAD_GPU_,sizeof(cudaIpcMemHandle_t),0666 | IPC_CREAT | IPC_EXCL)) < 0)
         {
+            cout << "1 \n";
             if (errno == EEXIST) {
+                cout << "2 \n";
                 if ((gpu_roadID = shmget(_ROAD_GPU_, 0, 0666)) < 0)
+                {
+                    cout << "3 \n";
                     return errno;
+                }
                 if (shmctl(gpu_roadID, IPC_RMID, (struct shmid_ds *)0x00) < 0)
+                {
+                    printf("4 \n");
                     return errno;
+                }
             }
             else {
+                printf("5 \n");
                 return errno;
             }
             cout << "Error in ROAD GPU " << errno << '\n';
         }
+
         cudaMalloc(&gpu_road,10000000*sizeof(Node));
         cudaIpcGetMemHandle((cudaIpcMemHandle_t *) &road_gpuHandle, (void*)gpu_road);
         cudaMemcpy(gpu_road,road,10000000*sizeof(Node),cudaMemcpyHostToDevice);
@@ -98,7 +115,7 @@ int LoadMap(string csv)
             if (gpu_roadID != -1) shmctl(gpu_roadID, IPC_RMID, (struct shmid_ds *) 0);
         }
         memcpy(temp, &road_gpuHandle, sizeof(cudaIpcMemHandle_t));
-
+        cout << "Load Map to GPU Success \n";
         edge.close();
     }
 }

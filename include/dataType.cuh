@@ -6,9 +6,14 @@
 #define ASTAR_PAPER_DATATYPE_CUH
 
 typedef struct Node {
+    int node_id = 0;
+    Node *prev_nod;
     int r_len = 0;
     int dest[10];
     float len[10];
+
+    double f = 0;
+    double g =0;
 } Node;
 
 
