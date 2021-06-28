@@ -11,6 +11,8 @@ typedef struct Node {
     int r_len = 0;
     int dest[10];
     float len[10];
+    float lan;
+    float lot;
 
     double f = 0;
     double g =0;
