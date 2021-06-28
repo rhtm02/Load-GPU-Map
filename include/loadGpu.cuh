@@ -62,8 +62,8 @@ int LoadMap(string csv)
                 break;
             GetTmp(str);
 
-            lan[(int)tmp[1]] = tmp[6];
-            lot[(int)tmp[1]] = tmp[7];
+            road[(int)tmp[1]].lan = tmp[6];
+            road[(int)tmp[1]].lot = tmp[7];
 
             if ((int)tmp[4]!= 0) {
                 //road[(int)tmp[1]].node_id = (int)tmp[1];
@@ -80,7 +80,8 @@ int LoadMap(string csv)
         }
         for(int idx = 0;idx < 100;idx++)
         {
-            printf("%d index road len : %d dest ID : %d len : %f \n",idx,road[idx].r_len,road[idx].dest[0],road[idx].len[0]);
+            printf("%d index road len : %d dest ID : %d len : %f lan : %f lon %f \n",idx,road[idx].r_len,road[idx].dest[0],road[idx].len[0],
+                   road[idx].lan,road[idx].lot);
         }
         //for IPC
         if((gpu_roadID = shmget(_ROAD_GPU_,sizeof(cudaIpcMemHandle_t),0666 | IPC_CREAT | IPC_EXCL)) < 0)
