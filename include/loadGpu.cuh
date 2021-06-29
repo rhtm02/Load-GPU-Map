@@ -6,7 +6,7 @@
 #include <sys/ipc.h>
 #include "dataType.cuh"
 
-#define _ROAD_GPU_  0x50000001
+#define _ROAD_GPU_  0x50000002
 using namespace std;
 
 
@@ -62,7 +62,7 @@ int LoadMap(string csv)
                 break;
             GetTmp(str);
 
-            road[(int)tmp[1]].lan = tmp[6];
+            road[(int)tmp[1]].lat = tmp[6];
             road[(int)tmp[1]].lot = tmp[7];
 
             if ((int)tmp[4]!= 0) {

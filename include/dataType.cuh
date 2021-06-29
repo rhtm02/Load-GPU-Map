@@ -11,7 +11,7 @@ typedef struct Node {
     int r_len = 0;
     int dest[10];
     float len[10];
-    float lan;
+    float lat;
     float lot;
 
     double f = 0;
