@@ -66,12 +66,12 @@ int LoadMap(string csv)
             road[(int)tmp[1]].lot = tmp[7];
 
             if ((int)tmp[4]!= 0) {
-                //road[(int)tmp[1]].node_id = (int)tmp[1];
+                road[(int)tmp[1]].node_id = (int)tmp[1];
                 road[(int)tmp[1]].dest[road[(int)tmp[1]].r_len] = (int)tmp[2];
                 road[(int)tmp[1]].len[road[(int)tmp[1]].r_len++] = tmp[3];
             }
             if ((int)tmp[5] != 0) {
-                //road[(int)tmp[2]].node_id = (int)tmp[2];
+                road[(int)tmp[2]].node_id = (int)tmp[2];
                 road[(int)tmp[2]].dest[road[(int)tmp[2]].r_len] = (int)tmp[1];
                 road[(int)tmp[2]].len[road[(int)tmp[2]].r_len++] = tmp[3];
             }
@@ -80,8 +80,8 @@ int LoadMap(string csv)
         }
         for(int idx = 0;idx < 100;idx++)
         {
-            printf("%d index road len : %d dest ID : %d len : %f lan : %f lon %f \n",idx,road[idx].r_len,road[idx].dest[0],road[idx].len[0],
-                   road[idx].lan,road[idx].lot);
+            printf("%d index road id : %d len : %d dest ID : %d len[0] : %f lan : %f lon %f \n",idx,road[idx].node_id,road[idx].r_len,road[idx].dest[0],road[idx].len[0],
+                   road[idx].lat,road[idx].lot);
         }
         //for IPC
         if((gpu_roadID = shmget(_ROAD_GPU_,sizeof(cudaIpcMemHandle_t),0666 | IPC_CREAT | IPC_EXCL)) < 0)
